@@ -5,12 +5,7 @@ pipeline {
     }
 
     stages {
-        stage('Hello') {
-            steps {
-                echo 'Hello World'
-                
-            }
-        }
+        
         stage('Build') {
             steps {
                 echo 'Hello World'
@@ -19,15 +14,22 @@ pipeline {
                 sh 'mvn package'
             }
         }
-       stage('Deloy') {
+       stage('Test') {
             steps {
-                echo 'Hello World'
+                sh 'mvn test'
                 
             }
         }
-        stage('Test') {
+        stage ('create and push docker image') {
             steps {
-                echo 'Hello World'
+              script {
+    checkout scm
+    docker.withRegistry('', 'dockerUserID') {
+    def customImage = docker.build("smutoni2/holy-pipe:${env.BUILD_ID}")
+    customImage.push()
+
+}
+                
                 
             }
         }
