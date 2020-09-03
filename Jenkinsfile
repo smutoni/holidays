@@ -23,17 +23,18 @@ pipeline {
         stage ('create and push docker image') {
             steps {
               script {
-    checkout scm
-    docker.withRegistry('', 'DockerID') {
-    def customImage = docker.build("smutoni2/holy-pipe:${env.BUILD_ID}")
-    customImage.push()
+                 checkout scm
+                 docker.withRegistry('', 'DockerID') {
+                 def customImage = docker.build("smutoni2/holy-pipe:${env.BUILD_ID}")
+                 customImage.push()
+                 }
+         }
+        
+         }               
+                
+ }
+         }
+ }
 
-}
-                
-                
-            }
-        }
-    }
-}
 
 
