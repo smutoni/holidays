@@ -24,7 +24,7 @@ pipeline {
             steps {
               script {
     checkout scm
-    docker.withRegistry('', 'dockerUserID') {
+    docker.withRegistry('', 'DockerID') {
     def customImage = docker.build("smutoni2/holy-pipe:${env.BUILD_ID}")
     customImage.push()
 
